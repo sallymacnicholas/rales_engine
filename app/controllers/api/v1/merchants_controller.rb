@@ -34,18 +34,21 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def items
-    render json: Merchant.find_by(id: params[:merchant_id]).items
+    render json: find_merchant.items
   end
 
   def invoices
-    render json: Merchant.find_by(id: params[:merchant_id]).invoices
+    render json: find_merchant.invoices
   end
 
   def revenue
-    render json: Merchant.find_by(id: params[:merchant_id]).revenue
+    render json: find_merchant.revenue
   end
 
   private
+  def find_merchant
+    Merchant.find_by(id: params[:merchant_id])
+  end
 
   def merchant_params
     params.require(:merchant).permit(:name, :created_at, :updated_at)

@@ -34,14 +34,18 @@ class Api::V1::InvoiceItemsController < ApplicationController
   end
 
   def invoice
-    render json: InvoiceItem.find_by(id: params[:invoice_item_id]).invoice
+    render json: find_invoice_item.invoice
   end
 
   def item
-    render json: InvoiceItem.find_by(id: params[:invoice_item_id]).item
+    render json: find_invoice_item.item
   end
 
   private
+
+  def find_invoice_item
+    InvoiceItem.find_by(id: params[:invoice_item_id])
+  end
 
   def invoice_item_params
     params.require(:invoice_item).permit(:item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at)

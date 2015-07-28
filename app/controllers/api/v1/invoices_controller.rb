@@ -34,26 +34,30 @@ class Api::V1::InvoicesController < ApplicationController
   end
 
   def transactions
-    render json: Invoice.find_by(id: params[:invoice_id]).transactions
+    render json: find_invoice.transactions
   end
 
   def invoice_items
-    render json: Invoice.find_by(id: params[:invoice_id]).invoice_items
+    render json: find_invoice.invoice_items
   end
 
   def items
-    render json: Invoice.find_by(id: params[:invoice_id]).items
+    render json: find_invoice.items
   end
 
   def customer
-    render json: Invoice.find_by(id: params[:invoice_id]).customer
+    render json: find_invoice.customer
   end
 
   def merchant
-    render json: Invoice.find_by(id: params[:invoice_id]).merchant
+    render json: find_invoice.merchant
   end
 
   private
+
+  def find_invoice
+    Invoice.find_by(id: params[:invoice_id])
+  end
 
   def invoice_params
     params.require(:invoice).permit(:customer_id, :merchant_id, :status, :created_at, :updated_at)

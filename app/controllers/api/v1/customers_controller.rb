@@ -34,22 +34,26 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def invoices
-    render json: Customer.find_by(id: params[:customer_id]).invoices
+    render json: find_customer.invoices
   end
 
   def transactions
-    render json: Customer.find_by(id: params[:customer_id]).transactions
+    render json: find_customer.transactions
   end
 
   def favorite_merchant
-    render json: Customer.find_by(id: params[:customer_id]).fave_merch
+    render json: find_customer.fave_merch
   end
 
   def merchants
-    render json: Customer.find_by(id: params[:customer_id]).merchants
+    render json: find_customer.merchants
   end
 
   private
+
+  def find_customer
+    Customer.find_by(id: params[:customer_id])
+  end
 
   def customer_params
     params.require(:merchant).permit(:first_name,:last_name, :created_at, :updated_at)
