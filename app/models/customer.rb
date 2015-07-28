@@ -4,6 +4,6 @@ class Customer < ActiveRecord::Base
   has_many :merchants, through: :invoices
 
   def fave_merch
-    Merchants.order("count DESC").first
+    merchants.max_by { |m| m.transactions.where(result: "success").count }
   end
 end
