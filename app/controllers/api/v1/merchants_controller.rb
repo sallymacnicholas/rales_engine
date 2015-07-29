@@ -9,18 +9,6 @@ class Api::V1::MerchantsController < ApplicationController
     respond_with Merchant.find_by(id: params[:id])
   end
 
-  def create
-    respond_with Merchant.create(merchant_params)
-  end
-
-  def update
-    respond_with Merchant.create(params[:id], merchant_params)
-  end
-
-  def destroy
-    respond_with Merchant.destroy(params[:id])
-  end
-
   def random
     respond_with Merchant.limit(1).order("RANDOM()")
   end
@@ -42,9 +30,16 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def revenue
-    render json: find_merchant.revenue
+    render json: find_merchant.revenue(params)
   end
 
+  def favorite_customer
+    render json: find_merchant.fave_customer
+  end
+
+  def customers_with_pending_invoices
+    render json: find_merchant.customers_with_pending_invoices
+  end
   private
   def find_merchant
     Merchant.find_by(id: params[:merchant_id])
@@ -56,5 +51,9 @@ class Api::V1::MerchantsController < ApplicationController
 
   def find_params
     params.permit(:id, :name, :created_at, :updated_at)
+  end
+
+  def revenue_params
+    params.permit(:date)
   end
 end

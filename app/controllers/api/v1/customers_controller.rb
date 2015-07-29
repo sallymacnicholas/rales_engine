@@ -26,11 +26,13 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def find
-    render json: Customer.find_by(find_params)
+   render json: Customer.find_by(find_params)
+   #respond_with Customer.find_by(params.first.first => params.first.last)
   end
 
   def find_all
-    render json: Customer.where(find_params)
+   render json: Customer.where(find_params)
+   #respond_with Customer.where(params.first.first => params.first.last)
   end
 
   def invoices
@@ -60,6 +62,6 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def find_params
-    params.permit(:id, :first_name, :last_name, :created_at, :updated_at)
+    params.permit(:id, :first_name, :last_name,:full_name, :created_at, :updated_at)
   end
 end

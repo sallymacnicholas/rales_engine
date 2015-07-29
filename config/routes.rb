@@ -8,6 +8,8 @@ Rails.application.routes.draw do
         get '/items', to: 'merchants#items', only: [:index]
         get '/invoices', to: 'merchants#invoices', only: [:index]
         get '/revenue', to: 'merchants#revenue'
+        get '/favorite_customer', to: 'merchants#favorite_customer'
+        get '/customers_with_pending_invoices', to: 'merchants#customers_with_pending_invoices'
       end
 
       get '/customers/random', to: 'customers#random'
@@ -31,9 +33,9 @@ Rails.application.routes.draw do
         get '/merchant', to: 'invoices#merchant', only: [:show]
       end
 
-      get '/invoice_items/random', to: 'innvoice_items#random'
-      get '/invoice_items/find', to: 'innvoice_items#find'
-      get '/invoice_items/find_all', to: 'innvoice_items#find_all'
+      get '/invoice_items/random', to: 'invoice_items#random'
+      get '/invoice_items/find', to: 'invoice_items#find'
+      get '/invoice_items/find_all', to: 'invoice_items#find_all'
       resources :invoice_items, except: [:new, :edit] do
         get '/invoice', to: 'invoice_items#invoice', only: [:show]
         get '/item', to: 'invoice_items#item', only: [:show]
