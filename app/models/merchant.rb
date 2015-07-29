@@ -45,4 +45,9 @@ class Merchant < ActiveRecord::Base
     invoices.successful.where(invoices: {created_at: params[:date]}).joins(:invoice_items).sum('quantity * unit_price') / 100.00
   end
 
+  def customers_with_pending_invoices
+    a = invoices - invoices.successful
+    a.map {|i| i.customer }
+  end
+
 end
