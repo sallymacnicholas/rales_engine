@@ -3,6 +3,7 @@ class Merchant < ActiveRecord::Base
   has_many :items
   has_many :invoice_items, through: :invoices
   has_many :transactions, through: :invoices
+  has_many :customers, through: :invoices
 
   def self.most_rev(params)
     all.max_by(params[:quantity].to_i) { |m| m.calculate_revenue }
@@ -14,6 +15,10 @@ class Merchant < ActiveRecord::Base
     else
       calculate_revenue
     end
+  end
+
+  def favorite_customer
+    customers.map { |c| c.invoices.successful.where(merchant_id: id).count }
   end
 
   def self.all_revenue(params)

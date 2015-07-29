@@ -26,7 +26,7 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def find
-    render json: Item.find_by(find_params.downcase)
+    render json: Item.find_by(find_params)
   end
 
   def find_all
@@ -39,6 +39,18 @@ class Api::V1::ItemsController < ApplicationController
 
   def merchant
     render json: find_item.merchant
+  end
+
+  def most_revenue
+    respond_with Item.most_revenue(params)
+  end
+
+  def most_items
+    respond_with Item.most_items(params)
+  end
+
+  def best_day
+    respond_with find_item.best_day
   end
 
   private

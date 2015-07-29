@@ -33,6 +33,10 @@ class Api::V1::MerchantsController < ApplicationController
     render json: find_merchant.revenue(params)
   end
 
+  def favorite_customer
+    render json: find_merchant.favorite_customer
+  end
+
   def most_revenue
     respond_with Merchant.most_rev(params)
   end
