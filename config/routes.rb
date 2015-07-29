@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
-  namespace :api do
+  namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
       get '/merchants/random', to: 'merchants#random'
       get '/merchants/find', to: 'merchants#find'
       get '/merchants/find_all', to: 'merchants#find_all'
+      get 'merchants/most_revenue', to: 'merchants#most_revenue'
+      get 'merchants/most_items', to: 'merchants#most_items'
+      get 'merchants/revenue', to: 'merchants#all_revenue'
       resources :merchants, except: [:new, :edit] do
         get '/items', to: 'merchants#items', only: [:index]
         get '/invoices', to: 'merchants#invoices', only: [:index]
@@ -31,9 +34,9 @@ Rails.application.routes.draw do
         get '/merchant', to: 'invoices#merchant', only: [:show]
       end
 
-      get '/invoice_items/random', to: 'innvoice_items#random'
-      get '/invoice_items/find', to: 'innvoice_items#find'
-      get '/invoice_items/find_all', to: 'innvoice_items#find_all'
+      get '/invoice_items/random', to: 'invoice_items#random'
+      get '/invoice_items/find', to: 'invoice_items#find'
+      get '/invoice_items/find_all', to: 'invoice_items#find_all'
       resources :invoice_items, except: [:new, :edit] do
         get '/invoice', to: 'invoice_items#invoice', only: [:show]
         get '/item', to: 'invoice_items#item', only: [:show]

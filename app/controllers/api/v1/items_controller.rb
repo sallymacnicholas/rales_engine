@@ -26,7 +26,7 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def find
-    render json: Item.find_by(find_params)
+    render json: Item.find_by(find_params.downcase)
   end
 
   def find_all
