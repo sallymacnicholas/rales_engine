@@ -18,7 +18,10 @@ class Merchant < ActiveRecord::Base
   end
 
   def favorite_customer
-    customers.map { |c| c.invoices.successful.where(merchant_id: id).count }
+    hash = Hash.new(0)
+    customers.map { |c| hash[c] += 1 }
+    max_value = hash.values.max
+    hash.map { |k, v| k if v == max_value }.compact
   end
 
   def self.all_revenue(params)
