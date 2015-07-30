@@ -9,18 +9,6 @@ class Api::V1::TransactionsController < ApplicationController
     respond_with Transaction.find_by(id: params[:id])
   end
 
-  def create
-    respond_with Transaction.create(transaction_params)
-  end
-
-  def update
-    respond_with Transaction.create(params[:id], transaction_params)
-  end
-
-  def destroy
-    respond_with Transaction.destroy(params[:id])
-  end
-
   def random
     respond_with Transaction.limit(1).order("RANDOM()")
   end

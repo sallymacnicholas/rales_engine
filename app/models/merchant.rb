@@ -9,9 +9,9 @@ class Merchant < ActiveRecord::Base
     all.max_by(params[:quantity].to_i) { |m| m.calculate_revenue }
   end
 
-  def revenue(params)
+  def revenue(params = nil)
     if params[:date]
-      revenue_for_date(params)
+      revenue_for_date(params[:date])
     else
       calculate_revenue
     end
@@ -36,16 +36,16 @@ class Merchant < ActiveRecord::Base
     invoices.successful.joins(:invoice_items).sum("quantity * unit_price") / 100.00
   end
 
-  def self.most_items(params)
-    all.max_by(params[:quantity].to_i) { |m| m.total_items }
+  def self.most_items(quantity)
+    all.max_by(quantity.to_i) { |m| m.total_items }
   end
 
   def total_items
     invoices.successful.joins(:invoice_items).sum(:quantity)
   end
 
-  def revenue_for_date(params)
-    invoices.successful.where(invoices: {created_at: params[:date]}).joins(:invoice_items).sum('quantity * unit_price') / 100.00
+  def revenue_for_date(date)
+    invoices.successful.where(invoices: {created_at: date}).joins(:invoice_items).sum('quantity * unit_price') / 100.00
   end
 
   def customers_with_pending_invoices

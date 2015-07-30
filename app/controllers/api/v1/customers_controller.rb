@@ -9,18 +9,6 @@ class Api::V1::CustomersController < ApplicationController
     respond_with Customer.find_by(id: params[:id])
   end
 
-  def create
-    respond_with Customer.create(merchant_params)
-  end
-
-  def update
-    respond_with Customer.create(params[:id], customer_params)
-  end
-
-  def destroy
-    respond_with Customer.destroy(params[:id])
-  end
-
   def random
     respond_with Customer.limit(1).order("RANDOM()")
   end
@@ -34,7 +22,7 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def invoices
-    render json: find_customer.invoices
+    respond_with find_customer.invoices
   end
 
   def transactions

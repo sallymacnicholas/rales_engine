@@ -42,11 +42,11 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def all_revenue
-    respond_with Merchant.all_revenue(params)
+    respond_with Merchant.all_revenue(params[:date])
   end
 
   def most_items
-    respond_with Merchant.most_items(params)
+    respond_with Merchant.most_items(params[:quantity])
   end
 
   def customers_with_pending_invoices
