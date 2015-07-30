@@ -9,18 +9,6 @@ class Api::V1::InvoicesController < ApplicationController
     respond_with Invoice.find_by(id: params[:id])
   end
 
-  def create
-    respond_with Invoice.create(merchant_params)
-  end
-
-  def update
-    respond_with Invoice.create(params[:id], invoice_params)
-  end
-
-  def destroy
-    respond_with Invoice.destroy(params[:id])
-  end
-
   def random
     respond_with Invoice.limit(1).order("RANDOM()")
   end

@@ -9,18 +9,6 @@ class Api::V1::ItemsController < ApplicationController
     respond_with Item.find_by(id: params[:id])
   end
 
-  def create
-    respond_with Item.create(item_params)
-  end
-
-  def update
-    respond_with Item.create(params[:id], item_params)
-  end
-
-  def destroy
-    respond_with Item.destroy(params[:id])
-  end
-
   def random
     respond_with Item.limit(1).order("RANDOM()")
   end
@@ -39,6 +27,18 @@ class Api::V1::ItemsController < ApplicationController
 
   def merchant
     render json: find_item.merchant
+  end
+
+  def most_revenue
+    respond_with Item.most_revenue(params)
+  end
+
+  def most_items
+    respond_with Item.most_items(params[:quantity])
+  end
+
+  def best_day
+    respond_with find_item.best_day
   end
 
   private
